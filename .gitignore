@@ -1,0 +1,9 @@
+.idea/
+.settings
+.vscode/
+r6.yml
+test_bin
+r6
+vendor/
+main_test/
+*.log
