@@ -24,6 +24,8 @@ type Player struct {
 	ID           string
 	UserID       string
 	Platform     string
+	PlatformURL  string
+	SpaceID      string
 	IDOnPlatform string
 	Name         string
 
@@ -38,6 +40,8 @@ func (r6 *r6api) newPlayer(profile getPlayerProfile) *Player {
 		ID:           profile.ProfileID,
 		UserID:       profile.UserID,
 		Platform:     profile.PlatformType,
+		PlatformURL:  PlatformURL[profile.PlatformType],
+		SpaceID:      SpaceID[profile.PlatformType],
 		IDOnPlatform: profile.IDOnPlatform,
 		Name:         profile.NameOnPlatform,
 
@@ -63,7 +67,7 @@ type getPlayerProfile struct {
 
 // getPlayers получает список игроков по имени
 func (r6 *r6api) getPlayers(term, platform string) (result []getPlayerProfile, err error) {
-	data, err := r6.get(fmt.Sprintf(getPlayersURL, url.QueryEscape(term), url.QueryEscape(platform)), nil, "", true)
+	data, err := r6.get(fmt.Sprintf(getPlayersURL, url.QueryEscape(term), url.QueryEscape(platform)), "", true)
 	if err != nil {
 		return nil, errors.Wrap(err, "r6.get")
 	}
@@ -86,11 +90,22 @@ func (r6 *r6api) getPlayers(term, platform string) (result []getPlayerProfile, e
 	return result, nil
 }
 
-// getPlayer получает первого игрока из списка с таким именем
-func (r6 *r6api) getPlayer(term, platform string) (*Player, error) {
-	result, err := r6.getPlayers(term, platform)
+// GetPlayer получает первого игрока из списка с таким именем
+func (r6 *r6api) GetPlayer(username, platform string) (*Player, error) {
+	if c, ok := r6.players[platform]; ok {
+		if tt, ok := c.Get(username); ok {
+			if player, ok := tt.(*Player); ok {
+				return player, nil
+			}
+		}
+	}
+	result, err := r6.getPlayers(username, platform)
 	if err != nil {
 		return nil, err
 	}
-	return r6.newPlayer(result[0]), nil
+	player := r6.newPlayer(result[0])
+	if c, ok := r6.players[platform]; ok {
+		c.AddWithExpiresInSecs(username, player, 24*60*60)
+	}
+	return player, nil
 }

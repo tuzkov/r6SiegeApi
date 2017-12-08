@@ -117,7 +117,7 @@ func (r6 *r6api) tryConnect() (err error) {
 }
 
 // get делает запрос в Uplay с авторизацией и нужными заголовками
-func (r6 *r6api) get(url string, body []byte, referer string, isJSON bool) (message []byte, err error) {
+func (r6 *r6api) get(url string, referer string, isJSON bool) (message []byte, err error) {
 	if r6.needConnect() {
 		err = r6.tryConnect()
 		if err != nil {
@@ -125,7 +125,7 @@ func (r6 *r6api) get(url string, body []byte, referer string, isJSON bool) (mess
 		}
 	}
 
-	req, err := r6.newRequest(http.MethodGet, url, body, referer)
+	req, err := r6.newRequest(http.MethodGet, url, nil, referer)
 	if err != nil {
 		return nil, errors.Wrap(err, "r6.newRequest")
 	}
@@ -135,7 +135,7 @@ func (r6 *r6api) get(url string, body []byte, referer string, isJSON bool) (mess
 		return nil, errors.Wrap(err, "client.Do")
 	}
 	defer resp.Body.Close()
-	body, err = ioutil.ReadAll(resp.Body)
+	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, errors.Wrap(err, "ioutil.ReadAll")
 	}
