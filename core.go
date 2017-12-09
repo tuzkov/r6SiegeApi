@@ -4,6 +4,8 @@ import (
 	"log"
 	"net/http"
 	"time"
+
+	"github.com/pkg/errors"
 )
 
 // R6 интерфейс для работы с game-rainbow6.ubi.com
@@ -50,6 +52,11 @@ func NewByToken(token string) (R6, error) {
 		},
 	}
 
+	err := r6.tryConnect()
+	if err != nil {
+		return nil, errors.Wrap(err, "connect")
+	}
+
 	return r6, nil
 }
 
@@ -60,14 +67,12 @@ func (r6 *r6api) Test() {
 		return
 	}
 
-	stats, err := pl.fetchStats("secureareapvp_matchwon", "secureareapvp_matchlost", "secureareapvp_matchplayed")
+	rank, err := pl.Rank(RegionEU, -1)
 	if err != nil {
 		log.Println(err)
 		return
 	}
-	for k, v := range stats {
-		log.Println(k, v)
-	}
+	log.Println(*rank)
 
 	log.Println("done")
 }

@@ -39,17 +39,18 @@ type PlayerRank struct {
 	Wins              int     `json:"wins"`
 }
 
-// getRank получает ранг по указанныму региону и сезоне (-1 = текущий)
-func (pl *Player) getRank(region string, season int) (*PlayerRank, error) {
+// Rank получает ранг по указанныму региону и сезоне (-1 = текущий)
+func (pl *Player) Rank(region string, season int) (*PlayerRank, error) {
 	data, err := pl.parent.get(fmt.Sprintf(RankURL, pl.SpaceID, pl.PlatformURL, pl.ID, region, season), "", true)
 	if err != nil {
 		return nil, errors.Wrap(err, "r6.get")
 	}
-	var rank PlayerRank
-	err = json.Unmarshal(data, &rank)
+	var rankResp rankResponse
+	err = json.Unmarshal(data, &rankResp)
 	if err != nil {
 		return nil, errors.Wrap(err, "json.Unmarshal")
 	}
 
+	rank := rankResp.Players[pl.ID]
 	return &rank, nil
 }
