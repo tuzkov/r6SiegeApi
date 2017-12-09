@@ -1,7 +1,6 @@
 package r6
 
 import (
-	"log"
 	"encoding/json"
 	"fmt"
 

@@ -61,20 +61,27 @@ func NewByToken(token string) (R6, error) {
 }
 
 func (r6 *r6api) Test() {
-	pl, err := r6.GetPlayer("AlexanderTzk", PlatformUplay)
+	pl, err := r6.GetPlayer("AbRa.KaDaBrA_", PlatformUplay)
 	if err != nil {
 		log.Println(err)
 		return
 	}
 
-	rank, err := pl.Rank(RegionEU, -1)
+	log.Println(pl.ID)
+	log.Println(pl.UserID)
+	return
+	
+	stats, err := pl.PlayerStats()
 	if err != nil {
 		log.Println(err)
 		return
 	}
-	log.Println(*rank)
-	log.Println(rank.Rank)
-	log.Println(rank.RankBracket())
+
+	log.Println("casual")
+	log.Println(stats.Casual)
+
+	log.Println("\nranked")
+	log.Println(stats.Ranked)
 
 	log.Println("done")
 }
