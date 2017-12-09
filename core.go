@@ -73,6 +73,8 @@ func (r6 *r6api) Test() {
 		return
 	}
 	log.Println(*rank)
+	log.Println(rank.Rank)
+	log.Println(rank.RankBracket())
 
 	log.Println("done")
 }

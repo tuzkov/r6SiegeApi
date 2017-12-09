@@ -1,6 +1,7 @@
 package r6
 
 import (
+	"log"
 	"encoding/json"
 	"fmt"
 
@@ -37,6 +38,25 @@ type PlayerRank struct {
 	SkillStdev        float32 `json:"skill_stdev"`
 	UpdateTime        string  `json:"update_time"`
 	Wins              int     `json:"wins"`
+}
+
+
+// RankBracket получает ранг в human-like формате - "Золото 1", "Алмаз"
+func (r *PlayerRank) RankBracket() string {
+	if r.Rank == 0 {
+		return "Unranked"
+	} else if r.Rank < 5 {
+		return fmt.Sprintf("%s %d", "Copper", 5-r.Rank)
+	} else if r.Rank < 9 {
+		return fmt.Sprintf("%s %d", "Bronze", 9-r.Rank)
+	} else if r.Rank < 13 {
+		return fmt.Sprintf("%s %d", "Silver", 13-r.Rank)
+	} else if r.Rank < 17 {
+		return fmt.Sprintf("%s %d", "Gold", 17-r.Rank)
+	} else if r.Rank < 20 {
+		return fmt.Sprintf("%s %d", "Platinum", 20-r.Rank)
+	}
+	return "Diamond"
 }
 
 // Rank получает ранг по указанныму региону и сезоне (-1 = текущий)
