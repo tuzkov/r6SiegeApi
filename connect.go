@@ -67,8 +67,12 @@ func (r6 *r6api) connect() error {
 	}
 	defer resp.Body.Close()
 
+	if resp.StatusCode == http.StatusUnauthorized {
+		return ErrLoginIncorrect
+	}
+
 	if 200 > resp.StatusCode || resp.StatusCode > 299 {
-		return errors.New("response status is not ok")
+		return errors.Errorf("response status is not ok - %s", resp.Status)
 	}
 
 	respBody, err := ioutil.ReadAll(resp.Body)
@@ -103,7 +107,7 @@ func (r6 *r6api) tryConnect() (err error) {
 		err = r6.connect()
 		if err != nil {
 			log.Printf("r6: Ошибка при connect, попытка %d/%d: %s", i, r6.maxRetry, err.Error())
-			if err == ErrLoginCooldown {
+			if err == ErrLoginCooldown || err == ErrLoginIncorrect {
 				return
 			}
 			continue

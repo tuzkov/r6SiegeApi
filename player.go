@@ -9,7 +9,8 @@ import (
 )
 
 const (
-	getPlayersURL = "https://public-ubiservices.ubi.com/v2/profiles?nameOnPlatform=%s&platformType=%s"
+	getPlayersURL     = "https://public-ubiservices.ubi.com/v2/profiles?nameOnPlatform=%s&platformType=%s"
+	getPlayersByIDURL = "https://public-ubiservices.ubi.com/v2/users/%s/profiles"
 )
 
 var (
@@ -90,6 +91,31 @@ func (r6 *r6api) getPlayers(term, platform string) (result []getPlayerProfile, e
 	return result, nil
 }
 
+// getPlayersByID получает список игроков по ID
+func (r6 *r6api) getPlayersByID(id, platform string) (result []getPlayerProfile, err error) {
+	data, err := r6.get(fmt.Sprintf(getPlayersByIDURL, url.QueryEscape(id)), "", true)
+	if err != nil {
+		return nil, errors.Wrap(err, "r6.get")
+	}
+	var resp getPlayersResponse
+	err = json.Unmarshal(data, &resp)
+	if err != nil {
+		return nil, errors.Wrap(err, "json.Unmarshal")
+	}
+
+	result = make([]getPlayerProfile, 0, len(resp.Profiles))
+	for _, profile := range resp.Profiles {
+		if profile.PlatformType == platform {
+			result = append(result, profile)
+		}
+	}
+	if len(result) == 0 {
+		return nil, ErrNoProfiles
+	}
+
+	return result, nil
+}
+
 // GetPlayer получает первого игрока из списка с таким именем
 func (r6 *r6api) GetPlayer(username, platform string) (*Player, error) {
 	if c, ok := r6.players[platform]; ok {
@@ -106,6 +132,25 @@ func (r6 *r6api) GetPlayer(username, platform string) (*Player, error) {
 	player := r6.newPlayer(result[0])
 	if c, ok := r6.players[platform]; ok {
 		c.AddWithExpiresInSecs(username, player, 24*60*60)
+	}
+	return player, nil
+}
+
+func (r6 *r6api) GetPlayerByID(id, platform string) (*Player, error) {
+	if c, ok := r6.playerIDs[platform]; ok {
+		if tt, ok := c.Get(id); ok {
+			if player, ok := tt.(*Player); ok {
+				return player, nil
+			}
+		}
+	}
+	result, err := r6.getPlayersByID(id, platform)
+	if err != nil {
+		return nil, err
+	}
+	player := r6.newPlayer(result[0])
+	if c, ok := r6.playerIDs[platform]; ok {
+		c.AddWithExpiresInSecs(id, player, 24*60*60)
 	}
 	return player, nil
 }
