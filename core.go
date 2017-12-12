@@ -68,7 +68,7 @@ func NewByToken(token string) (R6, error) {
 }
 
 func (r6 *r6api) Test() {
-	pl, err := r6.GetPlayerByID("0482d826-bbf8-4565-ac30-68dacc9645ea", PlatformUplay)
+	pl, err := r6.GetPlayer("AbRa_KaDabRa_", PlatformUplay)
 	if err != nil {
 		log.Println(err)
 		return
