@@ -68,25 +68,47 @@ func NewByToken(token string) (R6, error) {
 }
 
 func (r6 *r6api) Test() {
-	pl, err := r6.GetPlayer("AbRa_KaDabRa_", PlatformUplay)
+	pl, err := r6.GetPlayer("AlexanderTzk", PlatformUplay)
 	if err != nil {
 		log.Println(err)
 		return
 	}
-	log.Println(pl.Name)
-
-	rank, err := pl.Rank(RegionEU, -1)
+	stats, err := pl.PlayerStats(true)
 	if err != nil {
 		log.Println(err)
 		return
 	}
-	log.Println(rank.RankBracket(), rank.MMR)
+	log.Println("Ranked")
+	log.Println("MatchWon", stats.Ranked.MatchWon)
+	log.Println("MatchLost", stats.Ranked.MatchLost)
+	log.Println("MatchPlayed", stats.Ranked.MatchPlayed)
+	log.Println("Kills", stats.Ranked.Kills)
+	log.Println("Death", stats.Ranked.Death)
+	log.Println("TimePlayed", stats.Ranked.TimePlayed)
 
-	// pl, err := r6.GetPlayer("AbRa.KaDaBrA_", PlatformUplay)
-	// if err != nil {
-	// 	log.Println(err)
-	// 	return
-	// }
+	log.Println("Casual")
+	log.Println("MatchWon", stats.Casual.MatchWon)
+	log.Println("MatchLost", stats.Casual.MatchLost)
+	log.Println("MatchPlayed", stats.Casual.MatchPlayed)
+	log.Println("Kills", stats.Casual.Kills)
+	log.Println("Death", stats.Casual.Death)
+	log.Println("TimePlayed", stats.Casual.TimePlayed)
 
-	// log.Println(pl.ID)
+	log.Println("Kills", stats.General.Kills)
+	log.Println("Deaths", stats.General.Deaths)
+	log.Println("BulletHit", stats.General.BulletHit)
+	log.Println("BulletFired", stats.General.BulletFired)
+	log.Println("Assists", stats.General.Assists)
+	log.Println("Revive", stats.General.Revive)
+	log.Println("Headshots", stats.General.Headshots)
+	log.Println("PenetrationKills", stats.General.PenetrationKills)
+	log.Println("MeleeKills", stats.General.MeleeKills)
+	log.Println("Suicide", stats.General.Suicide)
+	log.Println("Barricade", stats.General.Barricade)
+	log.Println("Reinforcement", stats.General.Reinforcement)
+	log.Println("DBNO", stats.General.DBNO)
+	log.Println("GadgetDestroy", stats.General.GadgetDestroy)
+	log.Println("DBNOAssists", stats.General.DBNOAssists)
+
+	log.Println("done")
 }
