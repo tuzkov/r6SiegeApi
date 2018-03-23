@@ -76,3 +76,20 @@ func (pl *Player) Rank(region string, season int) (*PlayerRank, error) {
 	rank := rankResp.Players[pl.ID]
 	return &rank, nil
 }
+
+// RankFromMMR высчитывает ранг из MMR
+func RankFromMMR(mmr float32) int {
+	if mmr < 1400 {
+		return 1
+	}
+	if mmr > 4499 {
+		return 20
+	}
+	if mmr < 2500 {
+		return int((mmr-1400)/100) + 2
+	}
+	if mmr < 3300 {
+		return int((mmr-2500)/200) + 13
+	}
+	return int((mmr-3300)/400) + 17
+}
