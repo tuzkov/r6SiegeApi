@@ -1,5 +1,9 @@
 # CHANGELOG
 
+1.1.0
+
+    - Dep
+
 1.0.0
 
     - Появился Changelog!
