@@ -13,11 +13,36 @@ const (
 	StaticticURL = "https://public-ubiservices.ubi.com/v1/spaces/%s/sandboxes/%s/playerstats2/statistics?populations=%s&statistics=%s"
 )
 
+var (
+	primaryStats = []string{
+		"matchwon", "matchlost", "timeplayed",
+		"matchplayed", "kills", "death",
+	}
+	generalStats = []string{
+		"generalpvp_kills",
+		"generalpvp_death",
+		"generalpvp_bullethit",
+		"generalpvp_bulletfired",
+		"generalpvp_killassists",
+		"generalpvp_revive",
+		"generalpvp_headshot",
+		"generalpvp_penetrationkills",
+		"generalpvp_meleekills",
+		"generalpvp_suicide",
+		"generalpvp_barricadedeployed",
+		"generalpvp_reinforcementdeploy",
+		"generalpvp_dbno",
+		"generalpvp_gadgetdestroy",
+		"generalpvp_dbnoassists",
+		"generalpvp_blindkills",
+	}
+)
+
 // PlayerStats текущая статистика игрока
 type PlayerStats struct {
-	Casual  GameStats
-	Ranked  GameStats
-	General GameStatsGeneral
+	Casual GameStats
+	Ranked GameStats
+	// General GameStatsGeneral
 }
 
 // GameStats статистика по типу игры (казуал/ранг)
@@ -79,49 +104,34 @@ func (st *GameStatsGeneral) fromMap(m map[string]json.Number) {
 }
 
 // PlayerStats получает текущую статистику игрока
-func (pl *Player) PlayerStats(extended bool) (*PlayerStats, error) {
-	stats := []string{
-		"matchwon", "matchlost", "timeplayed",
-		"matchplayed", "kills", "death",
+func (pl *Player) PlayerStats(ranked bool) (*GameStats, error) {
+	statsF := make([]string, 0, len(primaryStats)*2)
+	gameMode := "casualpvp_"
+	if ranked {
+		gameMode = "rankedpvp_"
 	}
-	generalStats := []string{
-		"generalpvp_kills",
-		"generalpvp_death",
-		"generalpvp_bullethit",
-		"generalpvp_bulletfired",
-		"generalpvp_killassists",
-		"generalpvp_revive",
-		"generalpvp_headshot",
-		"generalpvp_penetrationkills",
-		"generalpvp_meleekills",
-		"generalpvp_suicide",
-		"generalpvp_barricadedeployed",
-		"generalpvp_reinforcementdeploy",
-		"generalpvp_dbno",
-		"generalpvp_gadgetdestroy",
-		"generalpvp_dbnoassists",
-		"generalpvp_blindkills",
+	for _, s := range primaryStats {
+		statsF = append(statsF, gameMode+s)
 	}
-	statsF := make([]string, 0, len(stats)*2)
-	for _, game := range []string{"casualpvp_", "rankedpvp_"} {
-		for _, s := range stats {
-			statsF = append(statsF, game+s)
-		}
-	}
-	if extended {
-		statsF = append(statsF, generalStats...)
-	}
+
 	m, err := pl.fetchStats(statsF...)
 	if err != nil {
 		return nil, errors.Wrap(err, "fetchStats")
 	}
-	ps := &PlayerStats{}
-	ps.Casual.fromMap(m, "casualpvp_", stats)
-	ps.Ranked.fromMap(m, "rankedpvp_", stats)
-	if extended {
-		ps.General.fromMap(m)
-	}
+	ps := &GameStats{}
+	ps.fromMap(m, gameMode, primaryStats)
 
+	return ps, nil
+}
+
+// PlayerStatsExt возвращает расширенные статы
+func (pl *Player) PlayerStatsExt() (*GameStatsGeneral, error) {
+	m, err := pl.fetchStats(generalStats...)
+	if err != nil {
+		return nil, errors.Wrap(err, "fetchStats")
+	}
+	ps := &GameStatsGeneral{}
+	ps.fromMap(m)
 	return ps, nil
 }
 
