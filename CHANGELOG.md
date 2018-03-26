@@ -1,5 +1,9 @@
 # CHANGELOG
 
+1.2.0
+
+    - Split stats
+
 1.1.0
 
     - Dep
