@@ -77,6 +77,25 @@ func (pl *Player) Rank(region string, season int) (*PlayerRank, error) {
 	return &rank, nil
 }
 
+// SeasonNameByNum returns name of season like "Grim Sky"
+func SeasonNameByNum(season int) string {
+	switch season {
+	case 6:
+		return "Health"
+	case 7:
+		return "Blood Orchid"
+	case 8:
+		return "White Noise"
+	case 9:
+		return "Chimera"
+	case 10:
+		return "Para Bellum"
+	case 11:
+		return "Grim Sky"
+	}
+	return "Unknown"
+}
+
 // RankFromMMR высчитывает ранг из MMR
 func RankFromMMR(mmr float32) int {
 	if mmr < 1400 {
