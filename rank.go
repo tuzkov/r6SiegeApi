@@ -92,6 +92,8 @@ func SeasonNameByNum(season int) string {
 		return "Para Bellum"
 	case 11:
 		return "Grim Sky"
+	case 12:
+		return "Wind Bastion"
 	}
 	return "Unknown"
 }
