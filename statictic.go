@@ -139,6 +139,40 @@ type statisticReply struct {
 	Results map[string]map[string]json.Number `json:"results"`
 }
 
+const (
+	operatorPVPStatsPrefix = "operatorpvp"
+	operatorStatsTemplate  = "%s_%s" // $prefix_$stat like operatorpvp_kills to get kills for all operators
+)
+
+var (
+	operatorStats = []string{
+		"death",
+		"kills",
+		"roundlost",
+		"roundwon",
+		"timeplayed",
+	}
+)
+
+// OperatorsStats get all operators stats
+func (pl *Player) OperatorsStats() (map[string]int, error) {
+	stats := make([]string, 0)
+	for _, s := range operatorStats {
+		stats = append(stats, fmt.Sprintf(operatorStatsTemplate, operatorPVPStatsPrefix, s))
+	}
+	stats = append(stats, Operators.UniqueStatsPVP()...)
+
+	resp, err := pl.fetchStats(stats...)
+	if err != nil {
+		return nil, err
+	}
+	result := make(map[string]int, len(resp))
+	for k, v := range resp {
+		result[k] = intFromJSONNumber(v)
+	}
+	return result, nil
+}
+
 func (pl *Player) fetchStats(stats ...string) (map[string]json.Number, error) {
 	if len(stats) == 0 {
 		return nil, nil
@@ -161,7 +195,12 @@ func (pl *Player) fetchStats(stats ...string) (map[string]json.Number, error) {
 
 	result := make(map[string]json.Number, len(s))
 	for k, v := range s {
-		result[strings.Split(k, ":")[0]] = v
+		idx := strings.LastIndex(k, ":")
+		var name string
+		if idx != -1 {
+			name = k[:idx]
+		}
+		result[name] = v
 	}
 
 	return result, nil

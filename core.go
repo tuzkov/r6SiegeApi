@@ -1,6 +1,7 @@
 package r6
 
 import (
+	"log"
 	"net/http"
 	"time"
 
@@ -67,4 +68,13 @@ func NewByToken(token string) (R6, error) {
 }
 
 func (r6 *r6api) Test() {
+	pl, err := r6.GetPlayer("AlexanderTzk", PlatformUplay)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	s, err := pl.PlayerStats(true)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	log.Println(s.MatchWon, s.MatchLost)
 }

@@ -1,5 +1,9 @@
 # CHANGELOG
 
+1.3.0
+
+    - Added operators stats
+
 1.2.0
 
     - Split stats
