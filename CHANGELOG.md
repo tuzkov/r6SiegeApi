@@ -1,6 +1,6 @@
 # CHANGELOG
 
-1.3.0
+v1.3.0
 
     - Added operators stats
 
