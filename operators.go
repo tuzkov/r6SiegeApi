@@ -1606,6 +1606,12 @@ var (
 		"clash_sloweddown":                    "Замедленно врагов",
 		"Nomad_Assist":                        "Активированные заряды Airjab",
 		"Kaid_Electroclaw_Hatches":            "Люки под током",
+		"mozzie_droneshacked":                 "Спизжено дронов",
+		"gridlock_traxdeployed":               "Trax deployed",
+		"observationtooldeceived":             "Камер обмануто",
+		"warden_killswithglasses":             "Убийств в очках",
+		"goyo_volcandetonate":                 "Вулканов сработало",
+		"amaru_distancereeled":                "Дистанцию пролетела",
 	}
 )
 
