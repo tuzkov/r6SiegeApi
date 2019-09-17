@@ -1,12 +1,270 @@
-package r6_test
+package r6
 
 import (
 	"testing"
-
-	r6 "github.com/tuzkov/r6SiegeApi"
 )
 
-func TestRankFromMMR(t *testing.T) {
+func TestRankBracketNew(t *testing.T) {
+	tests := []struct {
+		name     string
+		rank     int
+		expected string
+	}{
+		{
+			"unranked",
+			0,
+			"Unranked",
+		},
+		{
+			"copper 5",
+			1,
+			"Copper 5",
+		},
+		{
+			"copper 1",
+			5,
+			"Copper 1",
+		},
+		{
+			"Bronze 5",
+			6,
+			"Bronze 5",
+		},
+		{
+			"Bronze 1",
+			10,
+			"Bronze 1",
+		},
+		{
+			"Silver 5",
+			11,
+			"Silver 5",
+		},
+		{
+			"Silver 1",
+			15,
+			"Silver 1",
+		},
+		{
+			"Gold 3",
+			16,
+			"Gold 3",
+		},
+		{
+			"Gold 1",
+			18,
+			"Gold 1",
+		},
+		{
+			"Platinum 3",
+			19,
+			"Platinum 3",
+		},
+		{
+			"Platinum 1",
+			21,
+			"Platinum 1",
+		},
+		{
+			"Diamond",
+			22,
+			"Diamond",
+		},
+		{
+			"Champion",
+			23,
+			"Champion",
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			p := &PlayerRank{Rank: test.rank}
+			if act := p.rankBracketNew(); act != test.expected {
+				t.Errorf("rankBracketNew %s != %s", act, test.expected)
+			}
+		})
+	}
+}
+
+func TestRankFromMMRNew(t *testing.T) {
+	tests := []struct {
+		name     string
+		mmr      float32
+		expected int
+	}{
+		{
+			"copper 5",
+			1000,
+			1,
+		},
+		{
+			"copper 4",
+			1200,
+			2,
+		},
+		{
+			"copper 4",
+			1299,
+			2,
+		},
+		{
+			"copper 3",
+			1300,
+			3,
+		},
+		{
+			"copper 3",
+			1350,
+			3,
+		},
+		{
+			"copper 3",
+			1399,
+			3,
+		},
+		{
+			"copper 2",
+			1400,
+			4,
+		},
+		{
+			"copper 2",
+			1499,
+			4,
+		},
+		{
+			"copper 1",
+			1500,
+			5,
+		},
+		{
+			"copper 1",
+			1599,
+			5,
+		},
+		{
+			"bronze 5",
+			1600,
+			6,
+		},
+		{
+			"bronze 3",
+			1850,
+			8,
+		},
+		{
+			"bronze 1",
+			2099,
+			10,
+		},
+		{
+			"silver 5",
+			2100,
+			11,
+		},
+		{
+			"silver 3",
+			2350,
+			13,
+		},
+		{
+			"silver 1",
+			2599,
+			15,
+		},
+		{
+			"gold 3",
+			2600,
+			16,
+		},
+		{
+			"gold 3",
+			2799,
+			16,
+		},
+		{
+			"gold 2",
+			2800,
+			17,
+		},
+		{
+			"gold 2",
+			2999,
+			17,
+		},
+		{
+			"gold 1",
+			3000,
+			18,
+		},
+		{
+			"gold 1",
+			3199,
+			18,
+		},
+		{
+			"plat 3",
+			3200,
+			19,
+		},
+		{
+			"plat 3",
+			3599,
+			19,
+		},
+		{
+			"plat 2",
+			3600,
+			20,
+		},
+		{
+			"plat 2",
+			3999,
+			20,
+		},
+		{
+			"plat 1",
+			4000,
+			21,
+		},
+		{
+			"plat 1",
+			4399,
+			21,
+		},
+		{
+			"diamond",
+			4400,
+			22,
+		},
+		{
+			"diamond",
+			4499,
+			22,
+		},
+		{
+			"champion",
+			5000,
+			23,
+		},
+		{
+			"champion",
+			8000,
+			23,
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			if act := RankFromMMRNew(test.mmr); act != test.expected {
+				t.Errorf("RankFromMMRNew() = %d, expected %d", act, test.expected)
+			}
+		})
+	}
+}
+
+func TestRankFromMMROld(t *testing.T) {
 	tests := []struct {
 		name string
 		mmr  float32
@@ -140,8 +398,8 @@ func TestRankFromMMR(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := r6.RankFromMMR(tt.mmr); got != tt.want {
-				t.Errorf("RankFromMMR() = %v, want %v", got, tt.want)
+			if got := RankFromMMROld(tt.mmr); got != tt.want {
+				t.Errorf("RankFromMMROld() = %v, want %v", got, tt.want)
 			}
 		})
 	}

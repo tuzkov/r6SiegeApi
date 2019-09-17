@@ -1371,6 +1371,186 @@ const operatorJSON = `
         }
       }
     }
+  },
+  "mozzie": {
+    "id": "mozzie",
+    "category": "def",
+    "name": {
+      "oasisId": "298616"
+    },
+    "ctu": {
+      "oasisId": "298584"
+    },
+    "index": "2:12",
+    "figure": {
+      "small": "assets/images/small-mozzie.52a71f0e.png",
+      "large": "assets/images/large-mozzie.78048c99.png"
+    },
+    "mask": "assets/images/mask-mozzie.be4d5555.png",
+    "badge": "assets/images/badge-mozzie.adeac188.png",
+    "uniqueStatistic": {
+      "pvp": {
+        "statisticId": "operatorpvp_mozzie_droneshacked:2:12",
+        "label": {
+          "oasisId": "298664"
+        }
+      },
+      "pve": {
+        "statisticId": "operatorpve_mozzie_droneshacked:2:12",
+        "label": {
+          "oasisId": "298664"
+        }
+      }
+    }
+  },
+  "gridlock": {
+    "id": "gridlock",
+    "category": "atk",
+    "name": {
+      "oasisId": "298589"
+    },
+    "ctu": {
+      "oasisId": "298584"
+    },
+    "index": "3:12",
+    "figure": {
+      "small": "assets/images/small-gridlock.99921908.png",
+      "large": "assets/images/large-gridlock.c16be815.png"
+    },
+    "mask": "assets/images/mask-gridlock.4b807b65.png",
+    "badge": "assets/images/badge-gridlock.6b572bdc.png",
+    "uniqueStatistic": {
+      "pvp": {
+        "statisticId": "operatorpvp_gridlock_traxdeployed:3:12",
+        "label": {
+          "oasisId": "298667"
+        }
+      },
+      "pve": {
+        "statisticId": "operatorpve_gridlock_traxdeployed:3:12",
+        "label": {
+          "oasisId": "298667"
+        }
+      }
+    }
+  },
+  "nakk": {
+    "id": "nakk",
+    "category": "atk",
+    "name": {
+      "oasisId": "299657"
+    },
+    "ctu": {
+      "oasisId": "299652"
+    },
+    "index": "2:13",
+    "figure": {
+      "small": "assets/images/small-nakk.b0b6a64e.png",
+      "large": "assets/images/large-nakk.483f7020.png"
+    },
+    "mask": "assets/images/mask-nakk.e93d394c.png",
+    "badge": "assets/images/badge-nakk.d3b4f1af.png",
+    "uniqueStatistic": {
+      "pvp": {
+        "statisticId": "operatorpvp_nokk_observationtooldeceived:2:13",
+        "label": {
+          "oasisId": "304013"
+        }
+      }
+    }
+  },
+  "warden": {
+    "id": "warden",
+    "category": "def",
+    "name": {
+      "oasisId": "299668"
+    },
+    "ctu": {
+      "oasisId": "303929"
+    },
+    "index": "2:14",
+    "figure": {
+      "small": "assets/images/small-warden.e2a1061e.png",
+      "large": "assets/images/large-warden.cefa3812.png"
+    },
+    "mask": "assets/images/mask-warden.b00a6d50.png",
+    "badge": "assets/images/badge-warden.fd12fbd9.png",
+    "uniqueStatistic": {
+      "pvp": {
+        "statisticId": "operatorpvp_warden_killswithglasses:2:14",
+        "label": {
+          "oasisId": "304018"
+        }
+      },
+      "pve": {
+        "statisticId": "operatorpve_warden_killswithglasses:2:14",
+        "label": {
+          "oasisId": "304018"
+        }
+      }
+    }
+  },
+  "goyo": {
+    "id": "goyo",
+    "category": "def",
+    "name": {
+      "oasisId": "304196"
+    },
+    "ctu": {
+      "oasisId": "308458"
+    },
+    "index": "2:15",
+    "figure": {
+      "small": "assets/images/small-goyo.f055a316.png",
+      "large": "assets/images/large-goyo.4a706a53.png"
+    },
+    "mask": "assets/images/mask-goyo.a404b891.png",
+    "badge": "assets/images/badge-goyo.3e765688.png",
+    "uniqueStatistic": {
+      "pvp": {
+        "statisticId": "operatorpvp_goyo_volcandetonate:2:15",
+        "label": {
+          "oasisId": "309864"
+        }
+      },
+      "pve": {
+        "statisticId": "operatorpve_goyo_volcandetonate:2:15",
+        "label": {
+          "oasisId": "309864"
+        }
+      }
+    }
+  },
+  "amaru": {
+    "id": "amaru",
+    "category": "atk",
+    "name": {
+      "oasisId": "308469"
+    },
+    "ctu": {
+      "oasisId": "308460"
+    },
+    "index": "2:17",
+    "figure": {
+      "small": "assets/images/small-amaru.054aff78.png",
+      "large": "assets/images/large-amaru.0dba2fcf.png"
+    },
+    "mask": "assets/images/mask-amaru.a2ddfb3d.png",
+    "badge": "assets/images/badge-amaru.24a70133.png",
+    "uniqueStatistic": {
+      "pvp": {
+        "statisticId": "operatorpvp_amaru_distancereeled:2:17",
+        "label": {
+          "oasisId": "309863"
+        }
+      },
+      "pve": {
+        "statisticId": "operatorpve_amaru_distancereeled:2:17",
+        "label": {
+          "oasisId": "309863"
+        }
+      }
+    }
   }
 }
 `

@@ -41,24 +41,50 @@ type PlayerRank struct {
 
 // RankBracket получает ранг в human-like формате - "Золото 1", "Алмаз"
 func (r *PlayerRank) RankBracket() string {
-	return r.rankBracket(r.Rank)
+	if r.Season > 14 {
+		return r.rankBracketNew()
+	}
+	return r.rankBracketOld()
 }
 
-func (r *PlayerRank) rankBracket(rank int) string {
-	if rank == 0 {
+func (r *PlayerRank) rankBracketOld() string {
+	switch {
+	case r.Rank == 0:
 		return "Unranked"
-	} else if rank < 5 {
-		return fmt.Sprintf("%s %d", "Copper", 5-rank)
-	} else if rank < 9 {
-		return fmt.Sprintf("%s %d", "Bronze", 9-rank)
-	} else if rank < 13 {
-		return fmt.Sprintf("%s %d", "Silver", 13-rank)
-	} else if rank < 17 {
-		return fmt.Sprintf("%s %d", "Gold", 17-rank)
-	} else if rank < 20 {
-		return fmt.Sprintf("%s %d", "Platinum", 20-rank)
+	case r.Rank < 5:
+		return fmt.Sprintf("%s %d", "Copper", 5-r.Rank)
+	case r.Rank < 9:
+		return fmt.Sprintf("%s %d", "Bronze", 9-r.Rank)
+	case r.Rank < 13:
+		return fmt.Sprintf("%s %d", "Silver", 13-r.Rank)
+	case r.Rank < 17:
+		return fmt.Sprintf("%s %d", "Gold", 17-r.Rank)
+	case r.Rank < 20:
+		return fmt.Sprintf("%s %d", "Platinum", 20-r.Rank)
 	}
 	return "Diamond"
+}
+
+func (r *PlayerRank) rankBracketNew() string {
+	switch {
+	case r.Rank == 0:
+		return "Unranked"
+	case r.Rank < 6:
+		return fmt.Sprintf("%s %d", "Copper", 6-r.Rank)
+	case r.Rank < 11:
+		return fmt.Sprintf("%s %d", "Bronze", 11-r.Rank)
+	case r.Rank < 16:
+		return fmt.Sprintf("%s %d", "Silver", 16-r.Rank)
+	case r.Rank < 19:
+		return fmt.Sprintf("%s %d", "Gold", 19-r.Rank)
+	case r.Rank < 22:
+		return fmt.Sprintf("%s %d", "Platinum", 22-r.Rank)
+	case r.Rank == 22:
+		return "Diamond"
+	case r.Rank > 22:
+		return "Champion"
+	}
+	return "Unknown"
 }
 
 // Rank получает ранг по указанныму региону и сезоне (-1 = текущий)
@@ -94,12 +120,45 @@ func SeasonNameByNum(season int) string {
 		return "Grim Sky"
 	case 12:
 		return "Wind Bastion"
+	case 13:
+		return "Burnt Horizon"
+	case 14:
+		return "Phantom Sight"
+	case 15:
+		return "Ember Rise"
 	}
 	return "Unknown"
 }
 
-// RankFromMMR высчитывает ранг из MMR
-func RankFromMMR(mmr float32) int {
+// RankFromMMR returns rank from MMR
+func RankFromMMR(mmr float32, season int) int {
+	if season > 14 {
+		return RankFromMMRNew(mmr)
+	}
+	return RankFromMMROld(mmr)
+}
+
+// RankFromMMRNew высчитывает ранг из MMR для сезонов 15 и дальше
+func RankFromMMRNew(mmr float32) int {
+	switch {
+	case mmr < 1100:
+		return 1
+	case mmr >= 1100 && mmr < 2600:
+		return int(mmr-1100)/100 + 1
+	case mmr >= 2600 && mmr < 3200:
+		return int(mmr-2600)/200 + 16
+	case mmr >= 3200 && mmr < 4400:
+		return int(mmr-3200)/400 + 19
+	case mmr >= 4400 && mmr < 5000:
+		return 22
+	case mmr >= 5000:
+		return 23
+	}
+	return 0
+}
+
+// RankFromMMROld высчитывает ранг из MMR для сезонов 6-14
+func RankFromMMROld(mmr float32) int {
 	if mmr < 1400 {
 		return 1
 	}
