@@ -16,6 +16,20 @@ const (
 	RankURL = "https://public-ubiservices.ubi.com/v1/spaces/%s/sandboxes/%s/r6karma/players?board_id=pvp_ranked&profile_ids=%s&region_id=%s&season_id=%d"
 )
 
+const (
+	emojiCheckMark      = "\U00002714"
+	emojiCross          = "\U0000274C"
+	emojiGemStone       = "\U0001F48E"
+	emojiDiamondWithDot = "\U0001F4A0"
+	emojiTrophy         = "\U0001F3C6"
+	emojiSportsMedal    = "\U0001F3C5"
+	emoji1stPlaceMedal  = "\U0001F947"
+	emoji2ndPlaceMedal  = "\U0001F948"
+	emoji3rdPlaceMedal  = "\U0001F949"
+	emojiPoo            = "\U0001F4A9"
+	emojiSkull          = "\U0001F480"
+)
+
 // PlayerRank ранг игрока
 type PlayerRank struct {
 	Abandons          int     `json:"abandons"`
@@ -41,48 +55,103 @@ type PlayerRank struct {
 
 // RankBracket получает ранг в human-like формате - "Золото 1", "Алмаз"
 func (r *PlayerRank) RankBracket() string {
-	if r.Season > 14 {
-		return r.rankBracketNew()
-	}
-	return r.rankBracketOld()
+	return RankBracket(r.Rank, r.Season < 15)
 }
 
-func (r *PlayerRank) rankBracketOld() string {
+func (r *PlayerRank) RankBracketEmoji() string {
+	return RankBracketEmoji(r.Rank, r.Season < 15)
+}
+
+func RankBracket(rank int, old bool) string {
+	if old {
+		return RankBracketOld(rank)
+	}
+	return RankBracketNew(rank)
+}
+
+func RankBracketEmoji(rank int, old bool) string {
+	if old {
+		return RankBracketOldEmoji(rank)
+	}
+	return RankBracketNewEmoji(rank)
+}
+
+func RankBracketOld(rank int) string {
 	switch {
-	case r.Rank == 0:
+	case rank == 0:
 		return "Unranked"
-	case r.Rank < 5:
-		return fmt.Sprintf("%s %d", "Copper", 5-r.Rank)
-	case r.Rank < 9:
-		return fmt.Sprintf("%s %d", "Bronze", 9-r.Rank)
-	case r.Rank < 13:
-		return fmt.Sprintf("%s %d", "Silver", 13-r.Rank)
-	case r.Rank < 17:
-		return fmt.Sprintf("%s %d", "Gold", 17-r.Rank)
-	case r.Rank < 20:
-		return fmt.Sprintf("%s %d", "Platinum", 20-r.Rank)
+	case rank < 5:
+		return fmt.Sprintf("Copper %d", 5-rank)
+	case rank < 9:
+		return fmt.Sprintf("Bronze %d", 9-rank)
+	case rank < 13:
+		return fmt.Sprintf("Silver %d", 13-rank)
+	case rank < 17:
+		return fmt.Sprintf("Gold %d", 17-rank)
+	case rank < 20:
+		return fmt.Sprintf("Platinum %d", 20-rank)
 	}
 	return "Diamond"
 }
 
-func (r *PlayerRank) rankBracketNew() string {
+func RankBracketOldEmoji(rank int) string {
 	switch {
-	case r.Rank == 0:
+	case rank == 0:
+		return emojiCross + "Unranked"
+	case rank < 5:
+		return fmt.Sprintf("%s Copper %d", emojiPoo, 5-rank)
+	case rank < 9:
+		return fmt.Sprintf("%s Bronze %d", emoji3rdPlaceMedal, 9-rank)
+	case rank < 13:
+		return fmt.Sprintf("%s Silver %d", emoji2ndPlaceMedal, 13-rank)
+	case rank < 17:
+		return fmt.Sprintf("%s Gold %d", emoji1stPlaceMedal, 17-rank)
+	case rank < 20:
+		return fmt.Sprintf("%s Platinum %d", emojiTrophy, 20-rank)
+	}
+	return emojiGemStone + " Diamond"
+}
+
+func RankBracketNew(rank int) string {
+	switch {
+	case rank == 0:
 		return "Unranked"
-	case r.Rank < 6:
-		return fmt.Sprintf("%s %d", "Copper", 6-r.Rank)
-	case r.Rank < 11:
-		return fmt.Sprintf("%s %d", "Bronze", 11-r.Rank)
-	case r.Rank < 16:
-		return fmt.Sprintf("%s %d", "Silver", 16-r.Rank)
-	case r.Rank < 19:
-		return fmt.Sprintf("%s %d", "Gold", 19-r.Rank)
-	case r.Rank < 22:
-		return fmt.Sprintf("%s %d", "Platinum", 22-r.Rank)
-	case r.Rank == 22:
+	case rank < 6:
+		return fmt.Sprintf("Copper %d", 6-rank)
+	case rank < 11:
+		return fmt.Sprintf("Bronze %d", 11-rank)
+	case rank < 16:
+		return fmt.Sprintf("Silver %d", 16-rank)
+	case rank < 19:
+		return fmt.Sprintf("Gold %d", 19-rank)
+	case rank < 22:
+		return fmt.Sprintf("Platinum %d", 22-rank)
+	case rank == 22:
 		return "Diamond"
-	case r.Rank > 22:
+	case rank > 22:
 		return "Champion"
+	}
+	return "Unknown"
+}
+
+func RankBracketNewEmoji(rank int) string {
+	switch {
+	case rank == 0:
+		return emojiCross + " Unranked"
+	case rank < 6:
+		return fmt.Sprintf("%s Copper %d", emojiPoo, 6-rank)
+	case rank < 11:
+		return fmt.Sprintf("%s Bronze %d", emoji3rdPlaceMedal, 11-rank)
+	case rank < 16:
+		return fmt.Sprintf("%s Silver %d", emoji2ndPlaceMedal, 16-rank)
+	case rank < 19:
+		return fmt.Sprintf("%s Gold %d", emoji1stPlaceMedal, 19-rank)
+	case rank < 22:
+		return fmt.Sprintf("%s Platinum %d", emojiTrophy, 22-rank)
+	case rank == 22:
+		return emojiGemStone + " Diamond"
+	case rank > 22:
+		return emojiSkull + " Champion"
 	}
 	return "Unknown"
 }

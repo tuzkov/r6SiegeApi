@@ -79,9 +79,90 @@ func TestRankBracketNew(t *testing.T) {
 
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			p := &PlayerRank{Rank: test.rank}
-			if act := p.rankBracketNew(); act != test.expected {
+			if act := RankBracketNew(test.rank); act != test.expected {
 				t.Errorf("rankBracketNew %s != %s", act, test.expected)
+			}
+		})
+	}
+}
+
+func TestRankBracketNewEmoji(t *testing.T) {
+	tests := []struct {
+		name     string
+		rank     int
+		expected string
+	}{
+		{
+			"unranked",
+			0,
+			"\U0000274C Unranked",
+		},
+		{
+			"copper 5",
+			1,
+			"\U0001F4A9 Copper 5",
+		},
+		{
+			"copper 1",
+			5,
+			"\U0001F4A9 Copper 1",
+		},
+		{
+			"Bronze 5",
+			6,
+			"\U0001F949 Bronze 5",
+		},
+		{
+			"Bronze 1",
+			10,
+			"\U0001F949 Bronze 1",
+		},
+		{
+			"Silver 5",
+			11,
+			"\U0001F948 Silver 5",
+		},
+		{
+			"Silver 1",
+			15,
+			"\U0001F948 Silver 1",
+		},
+		{
+			"Gold 3",
+			16,
+			"\U0001F947 Gold 3",
+		},
+		{
+			"Gold 1",
+			18,
+			"\U0001F947 Gold 1",
+		},
+		{
+			"Platinum 3",
+			19,
+			"\U0001F3C6 Platinum 3",
+		},
+		{
+			"Platinum 1",
+			21,
+			"\U0001F3C6 Platinum 1",
+		},
+		{
+			"Diamond",
+			22,
+			"\U0001F48E Diamond",
+		},
+		{
+			"Champion",
+			23,
+			"\U0001F480 Champion",
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			if act := RankBracketNewEmoji(test.rank); act != test.expected {
+				t.Errorf("rankBracketNewEmoji %s != %s", act, test.expected)
 			}
 		})
 	}
