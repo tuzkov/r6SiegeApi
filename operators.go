@@ -1551,67 +1551,131 @@ const operatorJSON = `
         }
       }
     }
+  },
+  "kali": {
+    "id": "kali",
+    "category": "atk",
+    "name": {
+      "oasisId": "310757"
+    },
+    "ctu": {
+      "oasisId": "310754"
+    },
+    "index": "2:17",
+    "figure": {
+      "small": "assets/images/small-kali.357efec7.png",
+      "large": "assets/images/large-kali.4e4b9dfa.png"
+    },
+    "mask": "assets/images/mask-kali.062657d2.png",
+    "badge": "assets/images/badge-kali.ff0fee46.png",
+    "uniqueStatistic": {
+      "pvp": {
+        "statisticId": "operatorpvp_kali_gadgetdestroywithexplosivelance:2:17",
+        "label": {
+          "oasisId": "312718"
+        }
+      },
+      "pve": {
+        "statisticId": "operatorpve_kali_gadgetdestroywithexplosivelance:2:17",
+        "label": {
+          "oasisId": "312718"
+        }
+      }
+    }
+  },
+  "wamai": {
+    "id": "wamai",
+    "category": "def",
+    "name": {
+      "oasisId": "310768"
+    },
+    "ctu": {
+      "oasisId": "310754"
+    },
+    "index": "3:17",
+    "figure": {
+      "small": "assets/images/small-wamai.2d1691c4.png",
+      "large": "assets/images/large-wamai.34e21447.png"
+    },
+    "mask": "assets/images/mask-wamai.b4f444a4.png",
+    "badge": "assets/images/badge-wamai.4e4bf506.png",
+    "uniqueStatistic": {
+      "pvp": {
+        "statisticId": "operatorpvp_wamai_gadgetdestroybymagnet:3:17",
+        "label": {
+          "oasisId": "312719"
+        }
+      },
+      "pve": {
+        "statisticId": "operatorpve_wamai_gadgetdestroybymagnet:3:17",
+        "label": {
+          "oasisId": "312719"
+        }
+      }
+    }
   }
 }
 `
 
 var (
 	operatorSkillsTranslations = map[string]string{
-		"death":                               "Смертей",
-		"kills":                               "Убийств",
-		"roundlost":                           "Проиграно раундов",
-		"roundwon":                            "Выиграно раундов",
-		"timeplayed":                          "Сыграно времени",
-		"smoke_poisongaskill":                 "Убийств газом",
-		"mute_gadgetjammed":                   "Отключенные джаммером устройства",
-		"sledge_hammerhole":                   "Пробито кувалдой",
-		"thatcher_gadgetdestroywithemp":       "Уничтожено устройств EMP",
-		"castle_kevlarbarricadedeployed":      "Установлено бронепанелей",
-		"ash_bonfirewallbreached":             "Использований гранатомета",
-		"pulse_heartbeatspot":                 "Обнаружено сердцебиений",
-		"thermite_reinforcementbreached":      "Пропилено стен",
-		"doc_teammaterevive":                  "Поднято союзников",
-		"rook_armortakenteammate":             "Поднято бронепластин",
-		"twitch_gadgetdestroybyshockdrone":    "Уничтожено гаджетов шок-дроном",
-		"montagne_shieldblockdamage":          "Заблокировано выстрелов",
-		"glaz_sniperkill":                     "Убито в прицел",
-		"fuze_clusterchargekill":              "Убийств кластером",
-		"kapkan_boobytrapkill":                "Убийств капканом",
-		"tachanka_turretkill":                 "Убийств с турели",
-		"blitz_flashedenemy":                  "Ослеплено врагов",
-		"iq_gadgetspotbyef":                   "Обнаружено гаджетов",
-		"jager_gadgetdestroybycatcher":        "Сбито гранат",
-		"bandit_batterykill":                  "Убийств электричеством",
-		"buck_kill":                           "Убийств дробовиком",
-		"frost_dbno":                          "Срабатываний силка",
-		"blackbeard_gunshieldblockdamage":     "Поймано пуль щитом",
-		"valkyrie_camdeployed":                "Установлено камер",
-		"capitao_lethaldartkills":             "Сожжено врагов",
-		"caveira_interrogations":              "Допросов",
-		"hibana_detonate_projectile":          "Взорвано пеллетов",
-		"echo_enemy_sonicburst_affected":      "Врагов оглушено",
-		"cazador_assist_kill":                 "Помощь отслеживанием",
-		"black_mirror_gadget_deployed":        "Установлено зеркал",
-		"dazzler_gadget_detonate":             "Брошено канделл",
-		"caltrop_enemy_affected":              "Отравлено врагов",
-		"concussionmine_detonate":             "Оглушено миной",
-		"concussiongrenade_detonate":          "Оглушено гранатой",
-		"phoneshacked":                        "Взломано телефонов",
-		"attackerdrone_diminishedrealitymode": "Обмануто дронов",
-		"tagger_tagdevice_spot":               "Подсвечено врагов",
-		"rush_adrenalinerush":                 "Пусков адреналина",
-		"barrage_killswithturret":             "Убито турелью",
-		"deceiver_revealedattackers":          "Обмануто врагов призмой",
-		"maverick_wallbreached":               "Испорчено стен",
-		"clash_sloweddown":                    "Замедленно врагов",
-		"Nomad_Assist":                        "Активированные заряды Airjab",
-		"Kaid_Electroclaw_Hatches":            "Люки под током",
-		"mozzie_droneshacked":                 "Спизжено дронов",
-		"gridlock_traxdeployed":               "Trax deployed",
-		"observationtooldeceived":             "Камер обмануто",
-		"warden_killswithglasses":             "Убийств в очках",
-		"goyo_volcandetonate":                 "Вулканов сработало",
-		"amaru_distancereeled":                "Дистанцию пролетела",
+		"death":                                "Смертей",
+		"kills":                                "Убийств",
+		"roundlost":                            "Проиграно раундов",
+		"roundwon":                             "Выиграно раундов",
+		"timeplayed":                           "Сыграно времени",
+		"smoke_poisongaskill":                  "Убийств газом",
+		"mute_gadgetjammed":                    "Отключенные джаммером устройства",
+		"sledge_hammerhole":                    "Пробито кувалдой",
+		"thatcher_gadgetdestroywithemp":        "Уничтожено устройств EMP",
+		"castle_kevlarbarricadedeployed":       "Установлено бронепанелей",
+		"ash_bonfirewallbreached":              "Использований гранатомета",
+		"pulse_heartbeatspot":                  "Обнаружено сердцебиений",
+		"thermite_reinforcementbreached":       "Пропилено стен",
+		"doc_teammaterevive":                   "Поднято союзников",
+		"rook_armortakenteammate":              "Поднято бронепластин",
+		"twitch_gadgetdestroybyshockdrone":     "Уничтожено гаджетов шок-дроном",
+		"montagne_shieldblockdamage":           "Заблокировано выстрелов",
+		"glaz_sniperkill":                      "Убито в прицел",
+		"fuze_clusterchargekill":               "Убийств кластером",
+		"kapkan_boobytrapkill":                 "Убийств капканом",
+		"tachanka_turretkill":                  "Убийств с турели",
+		"blitz_flashedenemy":                   "Ослеплено врагов",
+		"iq_gadgetspotbyef":                    "Обнаружено гаджетов",
+		"jager_gadgetdestroybycatcher":         "Сбито гранат",
+		"bandit_batterykill":                   "Убийств электричеством",
+		"buck_kill":                            "Убийств дробовиком",
+		"frost_dbno":                           "Срабатываний силка",
+		"blackbeard_gunshieldblockdamage":      "Поймано пуль щитом",
+		"valkyrie_camdeployed":                 "Установлено камер",
+		"capitao_lethaldartkills":              "Сожжено врагов",
+		"caveira_interrogations":               "Допросов",
+		"hibana_detonate_projectile":           "Взорвано пеллетов",
+		"echo_enemy_sonicburst_affected":       "Врагов оглушено",
+		"cazador_assist_kill":                  "Помощь отслеживанием",
+		"black_mirror_gadget_deployed":         "Установлено зеркал",
+		"dazzler_gadget_detonate":              "Брошено канделл",
+		"caltrop_enemy_affected":               "Отравлено врагов",
+		"concussionmine_detonate":              "Оглушено миной",
+		"concussiongrenade_detonate":           "Оглушено гранатой",
+		"phoneshacked":                         "Взломано телефонов",
+		"attackerdrone_diminishedrealitymode":  "Обмануто дронов",
+		"tagger_tagdevice_spot":                "Подсвечено врагов",
+		"rush_adrenalinerush":                  "Пусков адреналина",
+		"barrage_killswithturret":              "Убито турелью",
+		"deceiver_revealedattackers":           "Обмануто врагов призмой",
+		"maverick_wallbreached":                "Испорчено стен",
+		"clash_sloweddown":                     "Замедленно врагов",
+		"Nomad_Assist":                         "Активированные заряды Airjab",
+		"Kaid_Electroclaw_Hatches":             "Люки под током",
+		"mozzie_droneshacked":                  "Спизжено дронов",
+		"gridlock_traxdeployed":                "Trax deployed",
+		"observationtooldeceived":              "Камер обмануто",
+		"warden_killswithglasses":              "Убийств в очках",
+		"goyo_volcandetonate":                  "Вулканов сработало",
+		"amaru_distancereeled":                 "Дистанцию пролетела",
+		"kali_gadgetdestroywithexplosivelance": "Гаджетов уничтожено устройством",
+		"wamai_gadgetdestroybymagnet":          "Гранат захвачено",
 	}
 )
 
