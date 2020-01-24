@@ -14,7 +14,7 @@ import (
 
 const (
 	// ConnectURL для подключения к серверу Ubi
-	ConnectURL = "https://connect.ubi.com/ubiservices/v2/profiles/sessions"
+	ConnectURL = "https://public-ubiservices.ubi.com/v3/profiles/sessions"
 )
 
 var (
