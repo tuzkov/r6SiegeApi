@@ -1613,6 +1613,130 @@ const operatorJSON = `
         }
       }
     }
+  },
+  "iana": {
+    "id": "iana",
+    "category": "atk",
+    "name": {
+      "oasisId": "317976"
+    },
+    "ctu": {
+      "oasisId": "318171"
+    },
+    "index": "2:19",
+    "figure": {
+      "small": "assets/images/small-iana.4d41a3e2.png",
+      "large": "assets/images/large-iana.0d0741d7.png"
+    },
+    "mask": "assets/images/mask-iana.10a7091c.png",
+    "badge": "assets/images/badge-iana.6fa68bc8.png",
+    "uniqueStatistic": {
+      "pvp": {
+        "statisticId": "operatorpvp_iana_killsafterreplicator:2:19",
+        "label": {
+          "oasisId": "318857"
+        }
+      },
+      "pve": {
+        "statisticId": "operatorpve_iana_killsafterreplicator:2:19",
+        "label": {
+          "oasisId": "318857"
+        }
+      }
+    }
+  },
+  "oryx": {
+    "id": "oryx",
+    "category": "def",
+    "name": {
+      "oasisId": "317965"
+    },
+    "ctu": {
+      "oasisId": "318172"
+    },
+    "index": "2:18",
+    "figure": {
+      "small": "assets/images/small-oryx.a8e94e41.png",
+      "large": "assets/images/large-oryx.1e480406.png"
+    },
+    "mask": "assets/images/mask-oryx.9bd0b149.png",
+    "badge": "assets/images/badge-oryx.6472c8ee.png",
+    "uniqueStatistic": {
+      "pvp": {
+        "statisticId": "operatorpvp_oryx_killsafterdash:2:18",
+        "label": {
+          "oasisId": "318856"
+        }
+      },
+      "pve": {
+        "statisticId": "operatorpve_oryx_killsafterdash:2:18",
+        "label": {
+          "oasisId": "318856"
+        }
+      }
+    }
+  },
+  "ace": {
+    "id": "ace",
+    "category": "atk",
+    "name": {
+      "oasisId": "320073"
+    },
+    "ctu": {
+      "oasisId": "310754"
+    },
+    "index": "4:17",
+    "figure": {
+      "small": "assets/images/small-ace.f9c08041.png",
+      "large": "assets/images/large-ace.79671f18.png"
+    },
+    "mask": "assets/images/mask-ace.479fa7d2.png",
+    "badge": "assets/images/badge-ace.f898bd77.png",
+    "uniqueStatistic": {
+      "pvp": {
+        "statisticId": "operatorpvp_ace_selmadetonate:4:17",
+        "label": {
+          "oasisId": "321921"
+        }
+      },
+      "pve": {
+        "statisticId": "operatorpve_ace_selmadetonate:4:17",
+        "label": {
+          "oasisId": "321921"
+        }
+      }
+    }
+  },
+  "melusi": {
+    "id": "melusi",
+    "category": "def",
+    "name": {
+      "oasisId": "320062"
+    },
+    "ctu": {
+      "oasisId": "320118"
+    },
+    "index": "2:1A",
+    "figure": {
+      "small": "assets/images/small-melusi.f1cd95d3.png",
+      "large": "assets/images/large-melusi.3a82e9b1.png"
+    },
+    "mask": "assets/images/mask-melusi.4415a836.png",
+    "badge": "assets/images/badge-melusi.f93b3d64.png",
+    "uniqueStatistic": {
+      "pvp": {
+        "statisticId": "operatorpvp_melusi_sloweddown:2:1A",
+        "label": {
+          "oasisId": "321922"
+        }
+      },
+      "pve": {
+        "statisticId": "operatorpve_melusi_sloweddown:2:1A",
+        "label": {
+          "oasisId": "321922"
+        }
+      }
+    }
   }
 }
 `
@@ -1676,6 +1800,10 @@ var (
 		"amaru_distancereeled":                 "Дистанцию пролетела",
 		"kali_gadgetdestroywithexplosivelance": "Гаджетов уничтожено устройством",
 		"wamai_gadgetdestroybymagnet":          "Гранат захвачено",
+		"iana_killsafterreplicator":            "Помощь репликотором",
+		"oryx_killsafterdash":                  "Убийств опрокинутых",
+		"ace_selmadetonate":                    "Сработано SELMA",
+		"melusi_sloweddown":                    "Замедленно Баньши",
 	}
 )
 

@@ -197,6 +197,10 @@ func SeasonNameByNum(season int) string {
 		return "Ember Rise"
 	case 16:
 		return "Shifting tides"
+	case 17:
+		return "Void edge"
+	case 18:
+		return "Steel wave"
 	}
 	return "Unknown"
 }
